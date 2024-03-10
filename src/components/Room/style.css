@@ -1,0 +1,16 @@
+.room-list{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.room-container{
+    margin: 10px 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.room-container div{
+    margin: 0 8px;
+}
