@@ -14,16 +14,17 @@ function SearchComponent() {
     const [checkInDate, setCheckInDate] = useState(null);
     const [checkOutDate, setCheckOutDate] = useState(null);
     const [checkOutDisabilityStatus, setCheckOutDisabilityStatus] = useState(true);
+    const [checkInDisabilityStatus, setCheckInDisabilityStatus] = useState(true);
     const [checkInError, setCheckInError] = useState(false);
     const [checkOutError, setCheckOutError] = useState(false);
     const [city, setCity] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const [searchStatus, setSearchStatus] = useState(true);
 
 
     const handleCheckInDate = (e) => {
-        const upcomingCheckInDate = new Date(e);
+        const upcomingCheckInDate = new Date(convertToDate(e));
         const currentDay = new Date();
         if (upcomingCheckInDate < currentDay) {
             setCheckInDate(null);
@@ -37,11 +38,12 @@ function SearchComponent() {
     }
 
     const handleCheckoutDate = (e) => {
-        const upcomingCheckOutDate = new Date(e);
+        const upcomingCheckOutDate = new Date(convertToDate(e));
         const actualCheckInDate = new Date(checkInDate);
         if (actualCheckInDate <= upcomingCheckOutDate) {
             setCheckOutError(false);
             setCheckOutDate(e);
+            setSearchStatus(false);
         }
         else {
             setCheckOutDate(null);
@@ -63,24 +65,28 @@ function SearchComponent() {
         dispatch(selectCity(city));
         dispatch(selectBookingDate(bookingDate));
         navigate('/hotels/' + city)
+
     }
 
     const handleSelectCity = (city) => {
         setCity(city);
+        setCheckInDisabilityStatus(false);
     }
+
 
     return (
         <Box className="search">
 
             <Box className="search-container">
+                <Box sx={{ textAlign: "center", fontFamily: "monospace", fontWeight: "800", fontSize: "1.5rem", color: "rgb(102, 178, 255)", paddingBottom: "20px" }}>Book your Stay Now</Box>
                 <Box sx={{ width: "100%" }}>
-                    <FormControl fullWidth>
+                    <FormControl fullWidth >
                         <InputLabel id="hotel-location">Select City</InputLabel>
                         <Select
                             labelId="select-city-label"
                             id="select-city"
                             value={city}
-                            label="Age"
+                            label="Select City"
                             onChange={(e) => handleSelectCity(e.target.value)}
                         >
                             <MenuItem value={"Agartala"}>Agartala</MenuItem>
@@ -95,7 +101,7 @@ function SearchComponent() {
                 <Box className="date-picker">
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer sx={{ margin: "10px 0" }} components={['DatePicker']}>
-                            <DatePicker sx={{ width: "100%" }} value={checkInDate} onChange={(e) => handleCheckInDate(e)} label="Select CheckIn Date" />
+                            <DatePicker disabled={checkInDisabilityStatus} sx={{ width: "100%" }} value={checkInDate} onChange={(e) => handleCheckInDate(e)} label="Select CheckIn Date" />
                         </DemoContainer>
                     </LocalizationProvider>
                     {
@@ -111,7 +117,7 @@ function SearchComponent() {
                     }
                 </Box>
                 <Box className="search-btn">
-                    <Button onClick={() => handleSearch()} disableFocusRipple disableRipple sx={{ color: "#FFF", fontSize: "1.2rem", backgroundColor: "rgb(102, 178, 255)", width: "100%", fontFamily: "monospace" }}>
+                    <Button disabled={searchStatus} onClick={() => handleSearch()} disableFocusRipple disableRipple sx={{ color: "#FFF", fontSize: "1.2rem", backgroundColor: "rgb(102, 178, 255)", width: "100%", fontFamily: "monospace", ':hover': { backgroundColor: "rgb(102, 178, 255)" } }}>
                         Search
                     </Button>
                 </Box>
@@ -121,4 +127,4 @@ function SearchComponent() {
     )
 }
 
-export default SearchComponent
+export default SearchComponent;

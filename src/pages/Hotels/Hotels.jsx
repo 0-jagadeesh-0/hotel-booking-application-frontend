@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import Navbar from '../../components/Navbar/Navbar'
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +11,8 @@ import './style.css'
 
 function Hotels() {
     const [hotels, setHotels] = useState([]);
-    const cityId = cityIdMap[window.sessionStorage.getItem('city')];
+    const city = window.sessionStorage.getItem('city');
+    const cityId = cityIdMap[city];
 
     const getHotelsInCity = async () => {
         const response = await getHotelsByCityId(cityId);
@@ -30,6 +31,8 @@ function Hotels() {
     return (
         <Box>
             <Navbar />
+            <Typography sx={{ paddingTop: "30px", textAlign: "center", fontSize: "2rem", color: "rgb(102, 178, 255)", fontFamily: "monospace", fontWeight: "600" }}>Hotels in {city}</Typography>
+
             <Box className="hotel-list">
                 {hotels.map((hotel, index) => {
                     return <HotelComponent key={index} hotel={hotel} />

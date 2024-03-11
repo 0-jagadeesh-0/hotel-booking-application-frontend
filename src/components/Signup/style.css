@@ -1,9 +1,22 @@
+.signup-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../assets/bg-1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: calc(100vh - 60px);
+}
+
 .signup-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 4rem;
+    background-color: white;
+    padding: 10px 25px;
+    border-radius: 10px;
 }
 .input-field{
     margin-top: 24px !important;

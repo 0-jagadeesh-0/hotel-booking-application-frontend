@@ -13,6 +13,7 @@ function HotelComponent({ hotel }) {
 
     return (
         <Box className="hotel-container">
+
             <Box className="hotel-image-container">
                 <img className='hotel-image' src={hotel.imageUrl} />
             </Box>

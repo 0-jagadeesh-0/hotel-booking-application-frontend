@@ -1,16 +1,31 @@
 .room-list{
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-top: 50px;
 }
 
 .room-container{
-    margin: 10px 20px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    border: 2px solid rgb(102, 178, 255);
+    width: 800px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 
 .room-container div{
     margin: 0 8px;
+}
+
+.room-types{
+    text-align: center;
+}
+.book-room{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
 }
